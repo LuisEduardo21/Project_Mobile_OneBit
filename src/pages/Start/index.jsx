@@ -1,9 +1,14 @@
 import React from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import DeafultButton from "../../components/Common/DefaultButton";
 
 import LifeStatus from "../../components/Common/LifeStatus";
 
 export default function Start() {
+  const handleNavAppExplanation = () => {
+    console.log("TESTANDO O CLICK!");
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -17,6 +22,12 @@ export default function Start() {
             Vamos transformar sua vida {"\n"} em jogo, buscando sempre{"\n"} o
             melhor nível.
           </Text>
+          <DeafultButton
+            buttonText={"Continuar"}
+            handlePress={handleNavAppExplanation}
+            width={250}
+            height={50}
+          />
         </View>
       </ScrollView>
     </View>
