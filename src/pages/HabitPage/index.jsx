@@ -8,14 +8,16 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import SelectHabit from "../../components/HabitPage/SelectHabit";
+import Notification from "../../components/HabitPage/Notification";
 import SelectFrequency from "../../components/HabitPage/SelectFrequency";
+import SelectHabit from "../../components/HabitPage/SelectHabit";
 
 export default function HabitPage({ route }) {
   const navigation = useNavigation();
   const { create, habit } = route.params;
   const [habitInput, setHabitInput] = useState();
   const [frequencyInput, setFrequencyInput] = useState();
+  const [notificationToggle, setNotificationToggle] = useState();
 
   return (
     <View style={styles.container}>
@@ -44,6 +46,13 @@ export default function HabitPage({ route }) {
               habitFrequency={habit?.habitFrequency}
               frequencyInput={setFrequencyInput}
             />
+
+            {frequencyInput === "Mensal" ? null : (
+              <Notification
+                notificationToggle={notificationToggle}
+                setNotificationToggle={setNotificationToggle}
+              />
+            )}
           </View>
         </View>
       </ScrollView>
