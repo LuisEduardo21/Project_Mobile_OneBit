@@ -19,12 +19,13 @@ import HabitServices from "../../Services/HabitServices";
 
 export default function HabitPage({ route }) {
   const navigation = useNavigation();
-  const { create, habit } = route.params;
   const [habitInput, setHabitInput] = useState();
   const [frequencyInput, setFrequencyInput] = useState();
   const [notificationToggle, setNotificationToggle] = useState();
   const [dayNotification, setDayNotification] = useState();
   const [timeNotification, setTimeNotification] = useState();
+
+  const { create, habit } = route.params;
 
   const habitCreated = new Date();
   const formatDate = `${habitCreated.getFullYear()}-${
@@ -77,8 +78,22 @@ export default function HabitPage({ route }) {
     if (notificationToggle === true && !dayNotification && !timeNotification) {
       Alert.alert("Você precisa colocar a frequência e horário da notificação");
     } else {
-      navigation.navigate("Home", {
-        updatedHabit: `Updated in ${habit?.habitArea}`,
+      HabitServices.updateHabit({
+        habitArea: habit?.habitArea,
+        habitName: habitInput,
+        habitFrequency: frequencyInput,
+        habitHasNotification: notificationToggle,
+        habitNotificationFrequency: dayNotification,
+        habitNotificationTime: timeNotification,
+        habitNotificationId: notificationToggle ? habitInput : null,
+      }).then(() => {
+        Alert.alert("Sucesso na atualização do hábito");
+        if (!notificationToggle) {
+        } else {
+        }
+        navigation.navigate("Home", {
+          updatedHabit: `Updated in ${habit?.habitArea}`,
+        });
       });
     }
   }
