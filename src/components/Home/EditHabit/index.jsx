@@ -1,7 +1,10 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function EditHabit({ habit, frequency, habitArea, checkColor }) {
+  const navigation = useNavigation();
+
   function handleEdit() {
     console.log("BOTÃO DE EDITAR CLICADO");
   }
