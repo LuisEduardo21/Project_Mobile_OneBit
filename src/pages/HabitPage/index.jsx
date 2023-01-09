@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import * as Notifications from "expo-notifications";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Alert,
   Image,
@@ -112,7 +112,15 @@ export default function HabitPage({ route }) {
       }).then(() => {
         Alert.alert("Sucesso na atualização do hábito");
         if (!notificationToggle) {
+          NotificationService.deleteNotification(habit?.habitName);
         } else {
+          NotificationService.deleteNotification(habit?.habitName);
+          NotificationService.createNotification(
+            habitInput,
+            frequencyInput,
+            dayNotification,
+            timeNotification
+          );
         }
         navigation.navigate("Home", {
           updatedHabit: `Updated in ${habit?.habitArea}`,
@@ -206,7 +214,7 @@ export default function HabitPage({ route }) {
               <UpdateExcludeButtons
                 handleUpdate={handleUpdateHabit}
                 habitArea={habitArea}
-                habitInput={habitInput}
+                habitInput={habit?.habitArea}
               />
             ) : (
               <View style={styles.configButton}>
