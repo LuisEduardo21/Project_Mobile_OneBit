@@ -18,6 +18,7 @@ export default function Home({ route }) {
   const [funHabit, setFunHabit] = useState();
 
   const [robotDaysLife, setRobotDaysLife] = useState();
+  const [checks, setChecks] = useState();
   const today = new Date();
 
   function handleNavExplanation() {
@@ -77,6 +78,13 @@ export default function Home({ route }) {
   useEffect(() => {
     CheckService.removeCheck(mindHabit, moneyHabit, bodyHabit, funHabit);
     CheckService.checkStatus(mindHabit, moneyHabit, bodyHabit, funHabit);
+
+    const mindChecks = mindHabit ? mindHabit?.habitChecks : 0;
+    const moneyChecks = moneyHabit ? moneyHabit?.habitChecks : 0;
+    const bodyChecks = bodyHabit ? bodyHabit?.habitChecks : 0;
+    const funChecks = funHabit ? funHabit?.habitChecks : 0;
+
+    setChecks(mindChecks + moneyChecks + bodyChecks + funChecks);
   }, [mindHabit, moneyHabit, bodyHabit, funHabit]);
 
   return (
@@ -84,8 +92,8 @@ export default function Home({ route }) {
       <ScrollView>
         <View style={{ alignItems: "center" }}>
           <Text style={styles.dailyChecks}>
-            ❤️ {robotDaysLife} {robotDaysLife === "01" ? "dia" : "dias"} - ✔️ 80
-            Checks
+            ❤️ {robotDaysLife} {robotDaysLife === "01" ? "dia" : "dias"} - ✔️{" "}
+            {checks} {checks === 1 ? "Check" : "Checks"}
           </Text>
           <LifeStatus
             mindHabit={mindHabit}
